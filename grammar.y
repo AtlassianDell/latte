@@ -34,7 +34,7 @@ assignmentStmt : TOK_IDENTIFIER TOK_EQUALS expression
 tableStmt : TOK_TABLE TOK_IDENTIFIER TOK_COLON '{' tableElements '}'
           ;
 
-tableElements : tableItem (',' tableItem)*   /* One or more table entries */
+tableElements : tableItem (',' tableItem)*   /* One or more entries */
               | /* empty */ 
               ;
 
@@ -42,7 +42,8 @@ tableItem : TOK_IDENTIFIER TOK_COLON expression /* Key-value style */
           | expression                        /* Array-like element */ 
           ;
 
-returnStmt : TOK_RETURN expression ';'
+returnStmt : TOK_RETURN expression ';' 
+              { $$ = generateReturnCode($2); } // Placeholder action 
            ;
 
 functionDecl : TOK_DECLARE TOK_IDENTIFIER TOK_LPAREN paramList TOK_RPAREN '{' statementList '}'
